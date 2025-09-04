@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
     where: { tenantId_phoneE164: { tenantId: tenant.id, phoneE164 } },
     update: {
       status: payload.wa_optin ? 'subscribed' : 'unsubscribed',
-      firstName: payload.first_name,
+      firstName: payload.first_name || null,
       policyVersion: payload.policy_version,
       source: payload.source ?? 'qr-menu',
     },
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
       tenantId: tenant.id,
       phoneE164,
       status: payload.wa_optin ? 'subscribed' : 'unsubscribed',
-      firstName: payload.first_name,
+      firstName: payload.first_name || null,
       policyVersion: payload.policy_version,
       source: payload.source ?? 'qr-menu',
     },
