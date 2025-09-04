@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendWelcomeTemplate } from '../../../../lib/whatsapp';
+import { sendWelcomeTemplate, type WhatsAppTemplateParams } from '../../../../lib/whatsapp';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,15 +29,20 @@ export async function POST(req: NextRequest) {
     phoneIdOverride = overrides.phoneId || undefined;
   }
 
-  const res = await sendWelcomeTemplate({
+  const templateParams: WhatsAppTemplateParams = {
     toPhoneE164: to,
     firstName: 'Amico',
     restaurantName: 'Trattoria Demo',
     giftLabel: 'calice di vino',
     promoCode: 'VOUCH-XXXXX',
-    phoneNumberId: phoneIdOverride || undefined,
     language: 'it',
-  }, tokenOverride);
+  };
+  
+  if (phoneIdOverride) {
+    templateParams.phoneNumberId = phoneIdOverride;
+  }
+  
+  const res = await sendWelcomeTemplate(templateParams, tokenOverride);
 
   return NextResponse.json(res);
 }
