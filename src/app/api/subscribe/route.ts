@@ -33,7 +33,7 @@ export async function OPTIONS() {
 }
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.ip || 'unknown';
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
   const rl = rateLimitByIp(ip, 15, 60_000);
   if (!rl.allowed) {
     return NextResponse.json({ ok: false, error: 'rate_limited', resetAt: rl.resetAt }, { status: 429 });
