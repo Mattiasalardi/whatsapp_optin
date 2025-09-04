@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
       waOptIn: payload.wa_optin,
       policyVersion: payload.policy_version,
       ip,
-      userAgent: req.headers.get('user-agent') || undefined,
+      userAgent: req.headers.get('user-agent') || null,
       source: payload.source ?? 'qr-menu',
     },
   });
