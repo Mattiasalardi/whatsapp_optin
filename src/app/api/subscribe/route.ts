@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { prisma } from '../../../lib/db';
-import { generatePromoCode, sendWelcomeTemplate } from '../../../lib/whatsapp';
+import { generatePromoCode, sendWelcomeTemplate, type WhatsAppTemplateParams } from '../../../lib/whatsapp';
 import { rateLimitByIp } from '../../../lib/rateLimit';
 import { waEnvStatus, logWAEnvStatus } from '@/lib/env';
 
@@ -119,15 +119,24 @@ export async function POST(req: NextRequest) {
   if (payload.wa_optin && missing.length === 0) {
     const promo = generatePromoCode();
     const toForWA = phoneE164.replace(/^\+/, '');
-    sendWelcomeTemplate({
+    const templateParams: WhatsAppTemplateParams = {
       toPhoneE164: toForWA,
       firstName: contact.firstName,
       restaurantName: tenant.name,
       giftLabel: tenant.giftLabel,
       promoCode: promo,
-      phoneNumberId: overridePhoneId || tenant.wabaPhoneNumberId || undefined,
-      language: tenant.defaultLanguage || undefined,
-    }, overrideToken).then((res) => {
+    };
+    
+    // Only add optional params if they have values
+    const phoneId = overridePhoneId || tenant.wabaPhoneNumberId;
+    if (phoneId) {
+      templateParams.phoneNumberId = phoneId;
+    }
+    if (tenant.defaultLanguage) {
+      templateParams.language = tenant.defaultLanguage;
+    }
+    
+    sendWelcomeTemplate(templateParams, overrideToken).then((res) => {
       if (!res.ok) {
         console.error('WhatsApp send non-blocking failure', res.status);
       }

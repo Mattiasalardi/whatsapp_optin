@@ -1,4 +1,4 @@
-// File: /Users/andreaalmerighi/wa-optin/src/app/api/webhook/route.ts
+// File: /Users/mattia/Downloads/wa-optin/src/app/api/webhook/route.ts
 import * as entry from '../../../../../src/app/api/webhook/route.js'
 import type { NextRequest } from 'next/server.js'
 

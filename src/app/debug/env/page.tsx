@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 function getPortFromEnvOrDefault(): string {
   const url = process.env.NEXT_PUBLIC_SITE_URL || '';
   const match = url.match(/:(\d+)/);
-  if (match) return match[1];
+  if (match && match[1]) return match[1];
   return process.env.PORT || '3000';
 }
 

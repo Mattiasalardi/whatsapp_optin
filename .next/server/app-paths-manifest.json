@@ -1,3 +1,11 @@
 {
-  "/api/webhook/route": "app/api/webhook/route.js"
+  "/api/health/route": "app/api/health/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/webhook/route": "app/api/webhook/route.js",
+  "/api/subscribe/route": "app/api/subscribe/route.js",
+  "/api/debug/wa-test/route": "app/api/debug/wa-test/route.js",
+  "/api/debug/env/route": "app/api/debug/env/route.js",
+  "/page": "app/page.js",
+  "/demo/page": "app/demo/page.js",
+  "/debug/env/page": "app/debug/env/page.js"
 }
