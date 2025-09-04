@@ -1,0 +1,1 @@
+globalThis.__RSC_MANIFEST=(globalThis.__RSC_MANIFEST||{});globalThis.__RSC_MANIFEST["/api/webhook/route"]={"moduleLoading":{"prefix":"/_next/"},"ssrModuleMapping":{},"edgeSSRModuleMapping":{},"clientModules":{},"entryCSSFiles":{"/Users/andreaalmerighi/wa-optin/src/":[],"/Users/andreaalmerighi/wa-optin/src/app/api/webhook/route":[]},"rscModuleMapping":{},"edgeRscModuleMapping":{}}

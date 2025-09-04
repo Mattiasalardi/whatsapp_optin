@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id                 String   @id @unique
+  name               String
+  giftLabel          String
+  defaultLanguage    String?  @default("it")
+  wabaPhoneNumberId  String?  // optional: override default env per-tenant later
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  contacts    Contact[]
+  consentLogs ConsentLog[]
+}
+
+model Contact {
+  id            String   @id @default(cuid())
+  tenantId      String
+  phoneE164     String
+  status        String   @default("subscribed")
+  firstName     String?
+  policyVersion String?
+  source        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  consentLogs ConsentLog[]
+
+  @@unique([tenantId, phoneE164])
+  @@index([tenantId])
+}
+
+model ConsentLog {
+  id            String   @id @default(cuid())
+  tenantId      String
+  contactId     String
+  phoneE164     String
+  waOptIn       Boolean
+  policyVersion String?
+  ip            String?
+  userAgent     String?
+  source        String?
+  createdAt     DateTime @default(now())
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id])
+  contact Contact @relation(fields: [contactId], references: [id])
+
+  @@index([tenantId])
+  @@index([contactId])
+}
