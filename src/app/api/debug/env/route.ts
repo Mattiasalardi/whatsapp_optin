@@ -25,8 +25,6 @@ export async function GET() {
         <tr><td>PHONE_NUMBER_ID (alias)</td><td>${flags.aliases.PHONE_NUMBER_ID}</td></tr>
         <tr><td>WELCOME_TEMPLATE_NAME</td><td>${flags.official.WELCOME_TEMPLATE_NAME}</td></tr>
         <tr><td>WELCOME_TEMPLATE_LANG</td><td>${flags.official.WELCOME_TEMPLATE_LANG}</td></tr>
-        <tr><td>WELCOME_TEMPLATE_NAME</td><td>${flags.WELCOME_TEMPLATE_NAME}</td></tr>
-        <tr><td>WELCOME_TEMPLATE_LANG</td><td>${flags.WELCOME_TEMPLATE_LANG}</td></tr>
       </tbody>
     </table>
     <p style="color:#555">Nota: i valori non vengono mostrati, solo la presenza.</p>
